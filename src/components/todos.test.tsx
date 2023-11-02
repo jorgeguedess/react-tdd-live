@@ -43,4 +43,30 @@ describe("Todos", () => {
 
     expect(screen.queryAllByText(taskTitle)).toHaveLength(1);
   });
+
+  it("should delete task on delete click", async () => {
+    render(<Todos />);
+
+    // Adicionar tarefa
+    const input = screen.getByPlaceholderText("Digite o nome da tarefa");
+
+    const taskTitle = "Nova tarefa";
+
+    await userEvent.type(input, taskTitle);
+
+    screen.getByDisplayValue(taskTitle);
+
+    const addButton = screen.getByLabelText("Adicionar tarefa");
+
+    await userEvent.click(addButton);
+
+    // Deletar tarefa que foi adicionada
+    const deleteButton = screen.getByLabelText(`Deletar tarefa: ${taskTitle}`);
+
+    await userEvent.click(deleteButton);
+
+    const deletedTask = screen.queryByText(taskTitle);
+
+    expect(deletedTask).not.toBeInTheDocument();
+  });
 });

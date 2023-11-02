@@ -1,4 +1,4 @@
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { v4 as uuid } from "uuid";
@@ -27,6 +27,10 @@ const Todos = (): JSX.Element => {
     resetField("title");
   };
 
+  const handleDeleteClick = (id: string) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
   return (
     <div className="w-screen h-screen bg-gray-950 flex items-center justify-center">
       <div className="flex flex-col items-center justify-center p-6 rounded-md bg-gray-800 gap-6">
@@ -48,9 +52,21 @@ const Todos = (): JSX.Element => {
         </div>
 
         {todos.map((todo) => (
-          <p className="text-gray-50" key={todo.id}>
-            {todo.title}
-          </p>
+          <div
+            className="flex items-center gap-4 w-full justify-between"
+            key={todo.id}
+          >
+            <p className="text-gray-50 rounded-md p-3 bg-gray-700 w-full">
+              {todo.title}
+            </p>
+
+            <button
+              aria-label={`Deletar tarefa: ${todo.title}`}
+              onClick={() => handleDeleteClick(todo.id)}
+            >
+              <AiOutlineDelete size={24} className="text-red-500" />
+            </button>
+          </div>
         ))}
       </div>
     </div>
