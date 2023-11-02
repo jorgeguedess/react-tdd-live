@@ -4,6 +4,9 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "paths": {
+      "react": ["./node_modules/@types/react"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
